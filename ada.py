@@ -38,56 +38,46 @@ def arrowKeysControl():
 	stdscr = curses.initscr()
 	curses.cbreak()
 
-        #s
+        #c variable holds the read key from the keyboard
 	c = 0
-        inc = 10
+
+
+        #A and B variables hold the individual motor speeds out of 127
         speedA = 0
         speedB = 0
 
-	while c != ord('q'):
+        #continuously loops through to read characters
+	while True:
 
+            #reads the character input from the keyboard and stores it in the c variable
 	    c = stdscr.getch()                
 
+            #if w is pressed go forward
 	    if c == ord('w'):
-#                if speedA < 100:
-#                    speedA = speedA + inc
-#                if speedB < 100:
-#                    speedB = speedB + inc
                 print('!A10', file=adausb)
                 print('!b10', file=adausb)
 
-            elif c == ord('z'):
-#                if speedA < 100:
-#                    speedA = speedA + inc
-#                if speedB < 100:
-#                    speedB = speedB + inc
-                print('!A30', file=adausb)
-                print('!b30', file=adausb)
-
+            #if a is pressed go left
 	    elif c == ord('a'):
-#                if speedA < 100:
-#                    speedA = speedA + inc
-#                if speedB > -100:
-#                    speedB = spdd          eedB - inc
                 print('!a10', file=adausb)
                 print('!b10', file=adausb)
 
+            #if d is pressed go right
 	    elif c == ord('d'):
-#                if speedA > -100:
-#                    speedA = speedA - inc
-#                if speedB < 100:
-#                    speedB = speedB + inc
                 print('!A10', file=adausb)
                 print('!B10', file=adausb)
 
+            #if s is pressed go backward
 	    elif c == ord('s'):
-#                if speedA > -100:
-#                    speedA = speedA - inc
-#                if speedB > -100:
-#                    speedB = speedB - inc
                 print('!a10', file=adausb)
                 print('!B10', file=adausb)
 
+            #if z is pressed go forward AT LUDICROUS SPEED! (~%30 speed)
+            elif c == ord('z'):
+                print('!A40', file=adausb)
+                print('!b40', file=adausb)
+
+            #if anything else is pressed, pause the motors and reset the speed values
             else:
                 print('%rrrrrr', file=adausb)
                 speedA = 0
